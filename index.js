@@ -2,10 +2,19 @@ const express = require('express');
 const cors = require('cors');
 const extract = require('extract-zip')
 const multer = require('multer');
+const fs = require('fs');
 
 const app = express();
 const path = require('path');
-const upload = multer({ dest: 'uploads/' });
+
+const storage = multer.diskStorage({
+    destination: 'uploads/',
+    filename: function (req, file, cb) {
+      cb(null, file.originalname); // Renomeia o arquivo com a extensão .zip
+    }
+});
+  
+const upload = multer({ storage: storage });
 
 const port = process.env.PORT || 3000
 
@@ -27,13 +36,13 @@ app.get('/', (request, response) => {
 
 app.post('/upload', upload.single('zipFile'), async (req, res) => {
     const zipFilePath = req.file.path; //Pegar o caminho para o arquivo zip
+    console.log(zipFilePath)
     const extractionPath = 'extracted/';
   
     try {
-      const uniqueFileName = `${Date.now()}-${req.file.originalname}`;
-      const extractedPath = `${extractionPath}${uniqueFileName}`;
+      const uniqueFileName = `${req.file.originalname}`;
   
-      await extractZip(zipFilePath, extractedPath);
+      await extractZip(zipFilePath, extractionPath);
   
       // Excluir o arquivo zip
       fs.unlink(zipFilePath, (err) => {
@@ -52,14 +61,15 @@ app.post('/upload', upload.single('zipFile'), async (req, res) => {
 // Função para extrair o arquivo zip
 async function extractZip(zipFilePath, extractionPath) {
     try {
-      await extract(zipFilePath, { dir: extractionPath });
-      console.log('Extração completa');
+        const absoluteExtractionPath = path.resolve(extractionPath); // Obter o caminho absoluto
+        await extract(zipFilePath, { dir: absoluteExtractionPath });
+        console.log('Extração completa');
     } catch (err) {
-      // Tratar qualquer erro
-      console.error(err);
-      throw new Error('Erro durante a extração do arquivo zip');
+        // Tratar qualquer erro
+        console.error(err);
+        throw new Error('Erro durante a extração do arquivo zip');
     }
-  }
+}
 
 
 app.listen(port, (err) => {
