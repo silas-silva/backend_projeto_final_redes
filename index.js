@@ -3,20 +3,17 @@ const cors = require('cors');
 const extract = require('extract-zip')
 const multer = require('multer');
 const fs = require('fs');
-
 const app = express();
 const path = require('path');
-
+const port = process.env.PORT || 3000
 const storage = multer.diskStorage({
     destination: 'uploads/',
     filename: function (req, file, cb) {
       cb(null, file.originalname); // Renomeia o arquivo com a extensão .zip
     }
 });
-  
 const upload = multer({ storage: storage });
 
-const port = process.env.PORT || 3000
 
 app.use((request, response, next) => {
     response.header("Access-Control-Allow-Origin", "*");
@@ -24,15 +21,16 @@ app.use((request, response, next) => {
     app.use(cors());
     next();
 })
-
 app.use(express.static(path.join(__dirname, "public/src")));
 app.use(express.urlencoded({extended:true}))
 app.use(express.json());
+
 
 //rotas
 app.get('/', (request, response) => {
     return response.status(500).send("Rota 1");
 });
+
 
 app.post('/upload', upload.single('zipFile'), async (req, res) => {
     const zipFilePath = req.file.path; //Pegar o caminho para o arquivo zip
@@ -56,9 +54,10 @@ app.post('/upload', upload.single('zipFile'), async (req, res) => {
       console.error(err);
       res.status(500).send('Erro durante a extração do arquivo zip');
     }
-  });
+});
 
-// Função para extrair o arquivo zip
+
+// Funções
 async function extractZip(zipFilePath, extractionPath) {
     try {
         const absoluteExtractionPath = path.resolve(extractionPath); // Obter o caminho absoluto
