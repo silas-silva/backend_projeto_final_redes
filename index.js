@@ -34,9 +34,19 @@ app.get('/', (request, response) => {
 
 
 app.post('/upload', upload.single('zipFile'), async (req, res) => {
+
     const zipFilePath = req.file.path; //Pegar o caminho para o arquivo zip
-    const extractionPath = 'extracted/';
-  
+    const extractionPath = req.file.originalname.replace('.zip', '');
+
+    // Cria uma pasta com o nome do arquivo extraido
+    fs.mkdir(extractionPath, (err) => {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log('Pasta criada com sucesso!');
+      }
+    });
+
     try {
       const uniqueFileName = `${req.file.originalname}`;
   
