@@ -13,6 +13,7 @@ const storage = multer.diskStorage({
     }
 });
 const upload = multer({ storage: storage });
+const {uploadPath} = require('./src/credenciais/apiCredenciais')
 
 
 app.use((request, response, next) => {
@@ -34,7 +35,6 @@ app.get('/', (request, response) => {
 
 app.post('/upload', upload.single('zipFile'), async (req, res) => {
     const zipFilePath = req.file.path; //Pegar o caminho para o arquivo zip
-    console.log(zipFilePath)
     const extractionPath = 'extracted/';
   
     try {
@@ -48,6 +48,10 @@ app.post('/upload', upload.single('zipFile'), async (req, res) => {
           console.error(err);
         }
       });
+
+      uploadPath(extractionPath).then(data => {
+        console.log(data)
+      })
   
       res.status(200).send('Extração completa');
     } catch (err) {

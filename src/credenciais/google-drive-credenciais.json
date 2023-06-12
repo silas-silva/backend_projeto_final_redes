@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "elite-bedrock-389601",
+  "private_key_id": "ef56ca09ab14663866a91922a6efbeca6da69cd1",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDSAlZCXP5o7t8M\nDpL0ENKwPloUtAa35mvkzbvnM/TcOjl5m6wqAADAuGG2HxDyRJJao6USzJE9BIcm\npuL6HjYxZQWPda3rdJOFNGHQpzJOICbPkJyaLRWPwVDpuYVhi0T/UZlmN4zK2mFy\nHo4MYYg53cyQp3XfCBGF1Z78eCvCQ4rm5DaEjlBcBJn/ZJuKe7rbfEXCxvnZUOQA\nhp8RewHI6zVuJlqUK3WSdJGG6qJEGDdEmXXoo2q99rmyEuaM4aiZhxpi1yB+SqHQ\nyfaHtlMGrNr097rfIJnhq+1JLoKR5gkmd2dFxuHC5f8hWrgOc6C4j480CN+OMNdU\n/is2jZKlAgMBAAECggEANVC+kW6GcCFkouz4RdoXgwLxX5wssHdhIN9SOuon2dk2\nSjdJSAhkKIkm1VOhu7/I4BX3jIQ+wxzpKtjnetQ8seGRvdAEbWhVI1YfFxe7X7Yt\n5Dg0abfUZ4COiCe/QvpWc/NFXHvx1HYIky5Kpb4FFZvHmVnKROsJd8655CKmCVUi\nNgNFsUyHzyAVrXB16KmICDiApA+je68YiuZ9lRAsO2/ILWRpjOyOPGnoJXaxV3gi\ngn6PlMmixi9x9ScCf0rpfyymP2paotTNmtFNZR4oLoJgPq1AdF4SRUh32eR9Ru3m\nP5UkNKLaevjlvY+DazpUPEVSpuLmgRaRuB9PwKKAqQKBgQD9b3zP4rr+x4+PciPS\nXrmLnwu/UJq2uLVYRfpqxw6JGL+AetYw7NXKU44oN7ZwLGkmcW5Lj7GGIe3VLLnz\nMKTxmDlK3rxBc4AI0MS0svtLpal9M31UVAZu92BGy9r4YOVgjMNA4mICA5DnMUgv\nFVdUGDKy4qOLbPAw50X41qLeBwKBgQDUIlsBAtldJ+RVpSF4ESYIMGYsFobdXyj5\nhs1veVNPXbrWcbBAhzTBO8JOXKtlyd3+qL8+XCBlzAmBg+LhWn4AvFbtpEjAvkxs\nBBGQJEE1prSLj3rYQVTXf+7SXb+BB6/sTw7XTiT45D0cRQxF6E/5ryP6YUAx8Pvr\n9vtQgJAe8wKBgQClTCcTDCW88XpALEkS9/d7CnRGBxOx481b0uCe7lAbuUmGShgT\n9xUGDvNkZdoXVdALY+Z1YDaAbvbJmI97/5lFfmy32YjeA7BZj5kM5sQitd1TLNcs\nvlUn4S8pXeLnJ4PUMltToZQdDihfsnQLSZcY4WOH62ySDq6mpuGriIrX1wKBgQDJ\n9EsfE09MWIYQ4zyRygGjGjCrGGccqVOg+qzpy19814bgUSuywwV+UR4S7DZgmWY2\n4v/uplZRk4YZPy3nzPbYTHWVmCmLFaA71UPDLkDGiwanNtmEt+3Fm44JyCZg+KiL\nGFjQsRyRtvhWyYV9qEU7N3nRDHTJFts/McrgQQTz8QKBgQCN8Ws5x/MCqfcxYZrt\nWO/VB5UbnpXTCrp56bbjvBHpbK9Lb2MuZyS5CwIxJFKSEFPLjctwrSU3oPtP6tEm\nqmHETddIid0Ea4sguzdcRnbEWZ1dQq7bowWVCZPKQz8X69O2IOGimA/rx7Upp7Mm\nqYCVV330DZLkcUWron6kJAAscQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "google-drive@elite-bedrock-389601.iam.gserviceaccount.com",
+  "client_id": "107428744140861136076",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/google-drive%40elite-bedrock-389601.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
