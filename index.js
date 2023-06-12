@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
     }
 });
 const upload = multer({ storage: storage });
-const {uploadPath} = require('./src/credenciais/apiCredenciais')
+const uploadPath = require('./public/src/credenciais/apiCredenciais')
 
 
 app.use((request, response, next) => {
@@ -22,7 +22,7 @@ app.use((request, response, next) => {
     app.use(cors());
     next();
 })
-app.use(express.static(path.join(__dirname, "public/src")));
+app.use(express.static(path.join(__dirname, "public/src/credenciais")));
 app.use(express.urlencoded({extended:true}))
 app.use(express.json());
 
@@ -34,7 +34,6 @@ app.get('/', (request, response) => {
 
 
 app.post('/upload', upload.single('zipFile'), async (req, res) => {
-
     const zipFilePath = req.file.path; //Pegar o caminho para o arquivo zip
     const extractionPath = req.file.originalname.replace('.zip', '');
 
@@ -46,10 +45,8 @@ app.post('/upload', upload.single('zipFile'), async (req, res) => {
         console.log('Pasta criada com sucesso!');
       }
     });
-
-    try {
-      const uniqueFileName = `${req.file.originalname}`;
   
+    try {  
       await extractZip(zipFilePath, extractionPath);
   
       // Excluir o arquivo zip
@@ -59,11 +56,19 @@ app.post('/upload', upload.single('zipFile'), async (req, res) => {
         }
       });
 
-      uploadPath(extractionPath).then(data => {
-        console.log(data)
-      })
+      const data  = await uploadPath(extractionPath)
+      console.log("Arquivos enviados");
+      console.log(data);
+
+      fs.rm(extractionPath, { recursive: true }, (err) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        console.log('Pasta removida com sucesso.');
+      });
   
-      res.status(200).send('Extração completa');
+      res.status(200).send('Extração completa e envio completo');
     } catch (err) {
       console.error(err);
       res.status(500).send('Erro durante a extração do arquivo zip');

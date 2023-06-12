@@ -19,9 +19,10 @@ async function uploadPath(folderPath){
       version: 'v3',
       auth: authClient
     })
-  
+    dataAtual = new Date();
+    stringData = dataAtual.getDate() + "-" + (dataAtual.getMonth() + 1) + "-"  + dataAtual.getFullYear()
     const fileMetaDataPath = {
-      name: 'Minha Pasta',
+      name: folderPath + ":" + stringData,
       parents: [GOOGLE_API_FOLDER_ID],
       mimeType: 'application/vnd.google-apps.folder',
     }
@@ -67,4 +68,4 @@ async function uploadPath(folderPath){
   }
 }
 
-export {uploadPath}
+module.exports = uploadPath
