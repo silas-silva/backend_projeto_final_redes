@@ -36,7 +36,12 @@ app.get('/', (request, response) => {
 app.post('/upload', upload.single('zipFile'), async (req, res) => {
     const zipFilePath = req.file.path; //Pegar o caminho para o arquivo zip
     const extractionPath = req.file.originalname.replace('.zip', '');
+    
+    const {ano, tipo} = req.body
 
+    //console.log(ano);
+    //console.log(tipo);
+    
     // Cria uma pasta com o nome do arquivo extraido
     fs.mkdir(extractionPath, (err) => {
       if (err) {
@@ -56,8 +61,9 @@ app.post('/upload', upload.single('zipFile'), async (req, res) => {
         }
       });
 
-      const data  = await uploadPath(extractionPath)
+      const data = await uploadPath(extractionPath)
       console.log("Arquivos enviados");
+      
       console.log(data);
 
       fs.rm(extractionPath, { recursive: true }, (err) => {
@@ -67,12 +73,33 @@ app.post('/upload', upload.single('zipFile'), async (req, res) => {
         }
         console.log('Pasta removida com sucesso.');
       });
+
+      // Os links estão em data, fazer um for e mandar cada  link para o OCR
+      // processarArrayLinksAsync(data).then(() => {
+      //   console.log('Arquivos armazenados');
+      // })
+      // .catch((error) => {
+      //   console.error('Erro:', error);
+      // });
+
   
-      res.status(200).send('Extração completa e envio completo');
+      res.status(200).send(data);
     } catch (err) {
       console.error(err);
       res.status(500).send('Erro durante a extração do arquivo zip');
     }
+});
+
+
+app.post('/buscar', (req, res) => {
+  //Pegar dados
+  const {palavrasChave, dataInicio, dataFim} = req.body
+  // Mandar para a rota de busca
+
+  // Receber os dados e guardarem data
+  const data = {palavrasChave, dataInicio, dataFim}
+
+  res.status(200).send(data);
 });
 
 
@@ -88,6 +115,32 @@ async function extractZip(zipFilePath, extractionPath) {
         throw new Error('Erro durante a extração do arquivo zip');
     }
 }
+
+
+const executeOCRassincrono = (item) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // Fazer logica para mandar pro OCR aqui.
+      // Esperar o OCR responder
+      // Mandar a resposta para o armazenamento, para os dados serem armazenados
+      resolve(); // Resolvendo a promessa após a operação ser concluída
+    }, 1000);
+  });
+};
+
+
+const processarArrayLinksAsync = (array) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      for (const item of array) {
+        await executeOCRassincrono(item);
+      }
+      resolve();
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
 
 
 app.listen(port, (err) => {
