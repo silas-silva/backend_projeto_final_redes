@@ -14,6 +14,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 const uploadPath = require('./public/src/credenciais/apiCredenciais')
+const axios = require('axios');
 
 
 app.use((request, response, next) => {
@@ -75,12 +76,12 @@ app.post('/upload', upload.single('zipFile'), async (req, res) => {
       });
 
       // Os links estão em data, fazer um for e mandar cada  link para o OCR
-      // processarArrayLinksAsync(data).then(() => {
-      //   console.log('Arquivos armazenados');
-      // })
-      // .catch((error) => {
-      //   console.error('Erro:', error);
-      // });
+      processarArrayLinksAsync(data).then(() => {
+        console.log('Arquivos armazenados');
+      })
+      .catch((error) => {
+        console.error('Erro:', error);
+      });
 
   
       res.status(200).send(data);
@@ -121,8 +122,39 @@ const executeOCRassincrono = (item) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       // Fazer logica para mandar pro OCR aqui.
-      // Esperar o OCR responder
-      // Mandar a resposta para o armazenamento, para os dados serem armazenados
+      const headers = {
+        'Content-Type': 'application/json'
+      };
+      
+      const data = {
+        link: item
+      };
+      
+      axios.post('https://exa844.rj.r.appspot.com/', data, { headers })
+        .then(response => {
+          // Esperar o OCR responder
+          dados = response.data;          
+          // Mandar a resposta para o armazenamento, para os dados serem armazenados
+          const data = {
+            dados
+          };
+          // data[""] = ""
+          
+          // axios.post('https://dbr-engenho-de-busca.onrender.com/cadastrarResolucao', data)
+          //   .then(response => {
+          //     // Esperar o OCR responder
+          //     console.log(response.data);
+          //     // https://dbr-engenho-de-busca.onrender.com/cadastrarResolucao
+              
+          //     // Mandar a resposta para o armazenamento, para os dados serem armazenados
+          //   })
+          //   .catch(error => {
+          //     console.error(error);
+          //   });
+        })
+        .catch(error => {
+          console.error(error);
+        });
       resolve(); // Resolvendo a promessa após a operação ser concluída
     }, 1000);
   });
@@ -133,6 +165,7 @@ const processarArrayLinksAsync = (array) => {
   return new Promise(async (resolve, reject) => {
     try {
       for (const item of array) {
+        console.log("Arquivo: " + item)
         await executeOCRassincrono(item);
       }
       resolve();

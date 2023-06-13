@@ -55,7 +55,8 @@ async function uploadPath(folderPath){
           media: media
         });
 
-        links.push('https://drive.google.com/uc?export=view&id=' + uploadedFile.data.id);
+        //links.push('https://drive.google.com/uc?export=view&id=' + uploadedFile.data.id);
+        links.push('https://drive.google.com/file/d/' + uploadedFile.data.id);
       }
     } catch (err) {
       console.error('Error:', err);
